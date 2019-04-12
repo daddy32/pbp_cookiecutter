@@ -2,3 +2,4 @@
 {{cookiecutter.directory_name}}/*/.ipynb_checkpoints/*
 {{cookiecutter.directory_name}}/utils/__pycache__/*
 {{cookiecutter.directory_name}}/__pycache__/*
+.mypy_cache/*

@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as et 
+import pandas as pd
 
 def parseElement(recordList, indent = 0):
     print(' '*indent + '{}'.format(recordList.tag))
@@ -25,13 +26,13 @@ def xmlElementToDf(
     out_df = pd.DataFrame(columns = columns)
     for node in xmlRoot: 
         values = []
-        for column in df_cols:
+        for column in columns:
             cell = node.find(namespace + column)
             val = cell.text if cell is not None else None
             values.append(val)
 
         out_df = out_df.append(
-            pd.Series(values,index = df_cols), 
+            pd.Series(values,index = columns), 
            ignore_index = True
         )
         
