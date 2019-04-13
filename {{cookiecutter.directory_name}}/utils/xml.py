@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as et 
 import pandas as pd
+import collections
 
 def parseElement(recordList, indent = 0):
     print(' '*indent + '{}'.format(recordList.tag))
@@ -10,10 +11,12 @@ def parseElement(recordList, indent = 0):
 
 # XML to pandas inspired by:
 # https://robertopreste.com/blog/parse-xml-into-dataframe
-       
+
+# Mozno upravit columns na dict - path -> label
+
 def xmlElementToDf(
         xmlRoot: et.Element, 
-        columns: list, 
+        columns, 
         namespace = ''
     ) -> pd.DataFrame:
     '''
@@ -22,8 +25,18 @@ def xmlElementToDf(
         into rows and columns of a Pandas DataFrame
     '''
     
+    columnNames = []
+    
+    if isinstance(columns, collections.Mapping):              
+        for column in columns:
+            columnNames.append(columns[column])
+    else:
+        columnNames = columns
+                
+    print(columnNames)
+    
     # TODO: Detect column names automatically, remove namespace from them for df.
-    out_df = pd.DataFrame(columns = columns)
+    out_df = pd.DataFrame(columns=columnNames)
     for node in xmlRoot: 
         values = []
         for column in columns:
@@ -32,8 +45,8 @@ def xmlElementToDf(
             values.append(val)
 
         out_df = out_df.append(
-            pd.Series(values,index = columns), 
-           ignore_index = True
+            pd.Series(values, index=columnNames), 
+            ignore_index = True
         )
         
     return out_df
