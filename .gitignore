@@ -3,3 +3,5 @@
 {{cookiecutter.directory_name}}/utils/__pycache__/*
 {{cookiecutter.directory_name}}/__pycache__/*
 .mypy_cache/*
+/rewrite_git_history.sh
+/set_git_credentials.bat
