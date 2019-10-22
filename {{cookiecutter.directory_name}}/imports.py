@@ -28,6 +28,7 @@ from utils.geo import *
 from utils.filesystem import *
 from utils.xml import *
 from utils.pandas import *
+from utils.plots import *
 
 # Custom default settings
 # from utils.settings import *
